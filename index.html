@@ -1,16 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Bagon Video</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bagon Video & QR</title>
     <style>
-        body { margin: 0; background: black; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        video { max-width: 100%; max-height: 100%; }
+        body { font-family: sans-serif; text-align: center; background: #121212; color: white; padding: 20px; }
+        video { width: 100%; max-width: 500px; border-radius: 10px; margin-bottom: 20px; }
+        .qr-container { background: white; padding: 20px; display: inline-block; border-radius: 10px; }
+        img { width: 200px; height: 200px; }
+        p { margin-top: 10px; color: #888; }
     </style>
 </head>
 <body>
-    <video controls autoplay>
+
+    <h1>Bagon Video</h1>
+    
+    <video controls autoplay muted>
         <source src="bagon.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+
+    <hr style="border: 0.5px solid #333; margin: 30px 0;">
+
+    <h3>Scan or Screenshot this QR:</h3>
+    <div class="qr-container">
+        <img src="qr-code.png" alt="QR Code to this page">
+    </div>
+    <p>This QR code leads back to this page!</p>
+
 </body>
 </html>
