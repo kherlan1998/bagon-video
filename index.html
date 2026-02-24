@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bagon Secret Video</title>
     <style>
-        body { font-family: sans-serif; text-align: center; background: #121212; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        body { font-family: sans-serif; text-align: center; background: #000; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         .qr-container { background: white; padding: 20px; border-radius: 15px; }
         img { width: 300px; height: 300px; display: block; }
-        /* Ensure the video container has size */
-        #video-section { display: none; width: 100%; max-width: 600px; }
-        video { width: 100%; border-radius: 15px; border: 2px solid #333; background: black; }
-        h1 { margin-bottom: 20px; }
+        #video-section { display: none; width: 90%; max-width: 600px; padding: 20px; }
+        video { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 0 25px rgba(255,255,255,0.3); background: #111; }
+        .btn { margin-top: 20px; padding: 15px 30px; background: #2ecc71; color: white; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -25,11 +24,11 @@
 
     <div id="video-section">
         <h1>Video Unlocked!</h1>
-        <video id="myVideo" controls playsinline muted autoplay>
+        <video id="myVideo" controls playsinline autoplay muted>
             <source src="bagon.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <p style="margin-top:10px; color:#888;">If video doesn't play, press the play button above.</p>
+        <button class="btn" onclick="const v=document.getElementById('myVideo'); v.muted=false; v.play();">▶ PLAY WITH SOUND</button>
     </div>
 
     <script>
@@ -37,13 +36,7 @@
         if (urlParams.get('scan') === 'true') {
             document.getElementById('qr-section').style.display = 'none';
             document.getElementById('video-section').style.display = 'block';
-            
-            // Force the video to try and load/play
-            const video = document.getElementById('myVideo');
-            video.load();
-            video.play().catch(error => {
-                console.log("Autoplay prevented. User must click play.");
-            });
+            document.getElementById('myVideo').load(); // Force the video to reload the new file
         }
     </script>
 </body>
