@@ -3,31 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bagon QR Code & Video</title>
+    <title>Bagon Secret Video</title>
     <style>
-        body { font-family: sans-serif; text-align: center; background: #121212; color: white; padding: 20px; }
-        .qr-box { background: white; padding: 15px; display: inline-block; border-radius: 12px; margin-top: 10px; }
-        img { width: 280px; height: 280px; display: block; }
-        video { width: 100%; max-width: 500px; border-radius: 10px; margin-top: 30px; border: 2px solid #333; }
-        h1 { margin-bottom: 5px; font-size: 1.5rem; }
-        p { color: #888; margin-top: 10px; }
+        body { font-family: sans-serif; text-align: center; background: #121212; color: white; padding: 40px 20px; }
+        .qr-container { background: white; padding: 20px; display: inline-block; border-radius: 15px; }
+        img { width: 300px; height: 300px; }
+        video { width: 100%; max-width: 600px; border-radius: 15px; display: none; } /* Hidden by default */
+        #message { margin-bottom: 20px; font-size: 1.2rem; }
     </style>
 </head>
 <body>
 
-    <h1>Scan or Screenshot Me</h1>
-    <div class="qr-box">
-        <img src="qr-code.png" alt="QR Code">
+    <div id="qr-section">
+        <h1>Scan to unlock video</h1>
+        <div class="qr-container">
+            <img src="qr-code.png" alt="QR Code">
+        </div>
     </div>
-    <p>Scan this to see the video!</p>
 
-    <hr style="border: 0.5px solid #333; margin: 40px 0;">
+    <div id="video-section" style="display:none;">
+        <h1>Bagon Video Unlocked!</h1>
+        <video id="myVideo" controls playsinline>
+            <source src="bagon.mp4" type="video/mp4">
+        </video>
+    </div>
 
-    <h2>Watch bagon.mp4</h2>
-    <video controls autoplay muted playsinline>
-        <source src="bagon.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
+    <script>
+        // Check if the URL ends with ?scan=true
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('scan') === 'true') {
+            document.getElementById('qr-section').style.display = 'none';
+            document.getElementById('video-section').style.display = 'block';
+            document.getElementById('myVideo').play();
+        }
+    </script>
 </body>
 </html>
