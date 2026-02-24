@@ -6,38 +6,44 @@
     <title>Bagon Secret Video</title>
     <style>
         body { font-family: sans-serif; text-align: center; background: #121212; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .qr-container { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .qr-container { background: white; padding: 20px; border-radius: 15px; }
         img { width: 300px; height: 300px; display: block; }
-        video { width: 100%; max-width: 600px; border-radius: 15px; display: none; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { margin-bottom: 20px; font-size: 1.5rem; }
+        /* Ensure the video container has size */
+        #video-section { display: none; width: 100%; max-width: 600px; }
+        video { width: 100%; border-radius: 15px; border: 2px solid #333; background: black; }
+        h1 { margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <div id="qr-section">
-        <h1>Scan to Unlocked Video</h1>
+        <h1>Scan to Unlock Video</h1>
         <div class="qr-container">
             <img src="qr-code.png" alt="QR Code">
         </div>
     </div>
 
-    <div id="video-section" style="display:none;">
+    <div id="video-section">
         <h1>Video Unlocked!</h1>
-        <video id="myVideo" controls playsinline>
+        <video id="myVideo" controls playsinline muted autoplay>
             <source src="bagon.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        <p style="margin-top:10px; color:#888;">If video doesn't play, press the play button above.</p>
     </div>
 
     <script>
-        // Checks if the URL has ?scan=true
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('scan') === 'true') {
             document.getElementById('qr-section').style.display = 'none';
             document.getElementById('video-section').style.display = 'block';
-            // Note: Most browsers require a click to play sound, but this triggers the video
+            
+            // Force the video to try and load/play
             const video = document.getElementById('myVideo');
-            video.play().catch(e => console.log("Autoplay waiting for user interaction"));
+            video.load();
+            video.play().catch(error => {
+                console.log("Autoplay prevented. User must click play.");
+            });
         }
     </script>
 </body>
