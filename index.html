@@ -5,38 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bagon Secret Video</title>
     <style>
-        body { font-family: sans-serif; text-align: center; background: #121212; color: white; padding: 40px 20px; }
-        .qr-container { background: white; padding: 20px; display: inline-block; border-radius: 15px; margin-top: 20px; }
-        img { width: 300px; height: 300px; }
-        video { width: 100%; max-width: 600px; border-radius: 15px; display: none; margin-top: 20px; }
-        #instruction { font-size: 1.2rem; color: #888; }
+        body { font-family: sans-serif; text-align: center; background: #121212; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .qr-container { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        img { width: 300px; height: 300px; display: block; }
+        video { width: 100%; max-width: 600px; border-radius: 15px; display: none; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { margin-bottom: 20px; font-size: 1.5rem; }
     </style>
 </head>
 <body>
 
     <div id="qr-section">
-        <h1>Scan to unlock the video</h1>
+        <h1>Scan to Unlocked Video</h1>
         <div class="qr-container">
             <img src="qr-code.png" alt="QR Code">
         </div>
-        <p id="instruction">Scan this image with your phone to play bagon.mp4</p>
     </div>
 
     <div id="video-section" style="display:none;">
         <h1>Video Unlocked!</h1>
         <video id="myVideo" controls playsinline>
             <source src="bagon.mp4" type="video/mp4">
+            Your browser does not support the video tag.
         </video>
     </div>
 
     <script>
-        // This script checks the URL for "?scan=true"
+        // Checks if the URL has ?scan=true
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('scan') === 'true') {
             document.getElementById('qr-section').style.display = 'none';
             document.getElementById('video-section').style.display = 'block';
-            // Auto-play the video if the browser allows it
-            document.getElementById('myVideo').play().catch(e => console.log("Auto-play blocked, user must click play."));
+            // Note: Most browsers require a click to play sound, but this triggers the video
+            const video = document.getElementById('myVideo');
+            video.play().catch(e => console.log("Autoplay waiting for user interaction"));
         }
     </script>
 </body>
