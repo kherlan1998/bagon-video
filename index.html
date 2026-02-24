@@ -6,35 +6,37 @@
     <title>Bagon Secret Video</title>
     <style>
         body { font-family: sans-serif; text-align: center; background: #121212; color: white; padding: 40px 20px; }
-        .qr-container { background: white; padding: 20px; display: inline-block; border-radius: 15px; }
+        .qr-container { background: white; padding: 20px; display: inline-block; border-radius: 15px; margin-top: 20px; }
         img { width: 300px; height: 300px; }
-        video { width: 100%; max-width: 600px; border-radius: 15px; display: none; } /* Hidden by default */
-        #message { margin-bottom: 20px; font-size: 1.2rem; }
+        video { width: 100%; max-width: 600px; border-radius: 15px; display: none; margin-top: 20px; }
+        #instruction { font-size: 1.2rem; color: #888; }
     </style>
 </head>
 <body>
 
     <div id="qr-section">
-        <h1>Scan to unlock video</h1>
+        <h1>Scan to unlock the video</h1>
         <div class="qr-container">
             <img src="qr-code.png" alt="QR Code">
         </div>
+        <p id="instruction">Scan this image with your phone to play bagon.mp4</p>
     </div>
 
     <div id="video-section" style="display:none;">
-        <h1>Bagon Video Unlocked!</h1>
+        <h1>Video Unlocked!</h1>
         <video id="myVideo" controls playsinline>
             <source src="bagon.mp4" type="video/mp4">
         </video>
     </div>
 
     <script>
-        // Check if the URL ends with ?scan=true
+        // This script checks the URL for "?scan=true"
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('scan') === 'true') {
             document.getElementById('qr-section').style.display = 'none';
             document.getElementById('video-section').style.display = 'block';
-            document.getElementById('myVideo').play();
+            // Auto-play the video if the browser allows it
+            document.getElementById('myVideo').play().catch(e => console.log("Auto-play blocked, user must click play."));
         }
     </script>
 </body>
